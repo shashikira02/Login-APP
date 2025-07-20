@@ -1,10 +1,9 @@
 import { useState } from "react";
-import "./App.css";
 
 function App() {
   const [formData, setFormData] = useState({
     username: "",
-    password: "",
+    password: ""
   });
 
   const [message, setMessage] = useState("");
@@ -12,10 +11,9 @@ function App() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }));
   };
 
@@ -25,11 +23,13 @@ function App() {
     const { username, password } = formData;
 
     if (username === "user" && password === "password") {
+      setMessage("Welcome, user!");
       setIsLoggedIn(true);
     } else {
       setMessage("Invalid username or password");
     }
   };
+
   return (
     <div>
       <h2>Login Page</h2>
@@ -37,34 +37,36 @@ function App() {
       {!isLoggedIn && (
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="username">username:</label>
+            <label htmlFor="username">Username</label> 
             <input
               type="text"
               id="username"
               name="username"
-              onChange={handleChange}
-              placeholder="username"
               value={formData.username}
+              onChange={handleChange}
               required
+              placeholder="username"
             />
           </div>
           <div>
-            <label htmlFor="password">password:</label>
+            <label htmlFor="password">Password</label> 
             <input
               type="password"
               id="password"
               name="password"
-              onChange={handleChange}
-              placeholder="password"
               value={formData.password}
+              onChange={handleChange}
               required
+              placeholder="password"
             />
           </div>
           <button type="submit">Submit</button>
-          {message && <p>{message}</p>}
+
+          {message === "Invalid username or password" && <p>{message}</p>}
         </form>
       )}
-      {isLoggedIn && <p>Welcome, user!</p>}
+
+      {isLoggedIn && <p>{message}</p>}
     </div>
   );
 }
